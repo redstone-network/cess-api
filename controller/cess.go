@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 
 	"log"
 
@@ -108,16 +109,17 @@ func Upload(context *gin.Context) {
 		return
 	}
 
-	hash, err := helper.Upload(token, defaultBucket, filename, d)
+	fid, err := helper.Upload(token, defaultBucket, filename, d)
+	fid, _ = strconv.Unquote(fid)
 	if err != nil {
 		fmt.Println("Upload error!", err.Error())
 		context.JSON(http.StatusOK, gin.H{"data": nil, "code": 1, "msg": "Upload fail! because " + err.Error()})
 		return
 	} else {
-		fmt.Println("Upload success! " + hash)
+		fmt.Println("Upload success! " + fid)
 	}
 
-	context.JSON(http.StatusOK, gin.H{"data": hash, "code": 0, "msg": "ok"})
+	context.JSON(http.StatusOK, gin.H{"data": fid, "code": 0, "msg": "ok"})
 }
 
 func Download(context *gin.Context) {
