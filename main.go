@@ -37,6 +37,7 @@ func serveApplication() {
 	apiRoutes.POST("/storage/bucket/:name", controller.CreateBucket)
 	apiRoutes.POST("/storage/:filename", controller.Upload)
 	apiRoutes.GET("/storage/:fid", controller.Download)
+	apiRoutes.GET("/storage/raw/:fid", controller.DownloadRaw)
 
 	router.Run(":8887")
 	fmt.Println("Server running on port 8887")

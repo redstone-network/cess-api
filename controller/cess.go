@@ -139,5 +139,25 @@ func Download(context *gin.Context) {
 		fmt.Println("Download success! ")
 	}
 
-	context.JSON(http.StatusOK, gin.H{"data": rt, "code": 0, "msg": "ok"})
+	context.JSON(http.StatusOK, gin.H{"data": string(rt), "code": 0, "msg": "ok"})
+}
+
+func DownloadRaw(context *gin.Context) {
+	log.Println("##in Download")
+	fid := context.Param("fid")
+	fmt.Println("Download fid! " + fid)
+
+	//defaultBucket := os.Getenv("DEFAULT_BUCKET")
+	account := os.Getenv("CESS_ADDRESS")
+
+	rt, err := helper.Download(account, fid)
+	if err != nil {
+		fmt.Println("Download error!", err.Error())
+		context.JSON(http.StatusOK, gin.H{"data": nil, "code": 1, "msg": "Download fail! because " + err.Error()})
+		return
+	} else {
+		fmt.Println("Download success! ")
+	}
+
+	context.Data(http.StatusOK, "application/octet-stream", rt)
 }
