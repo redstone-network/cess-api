@@ -88,7 +88,7 @@ func Upload(authToken string, bucketName string, fileName string, content []byte
 }
 
 //file	file[binary]
-func Download(account string, fid string) (string, error) {
+func Download(account string, fid string) ([]byte, error) {
 	ossHost := os.Getenv("OSS_HOST")
 	url := ossHost + fid
 	headers := make(map[string]string)
@@ -97,8 +97,8 @@ func Download(account string, fid string) (string, error) {
 	res, err := GetWithHeader(url, headers)
 
 	if err != nil {
-		return string(res), err
+		return res, err
 	}
 
-	return string(res), nil
+	return res, nil
 }
