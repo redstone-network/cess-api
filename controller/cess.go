@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// auth the oss serve
 func Auth(context *gin.Context) {
 	fmt.Println("@@@Auth info!")
 
@@ -39,6 +40,7 @@ func Auth(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"data": token, "code": 0, "msg": "ok"})
 }
 
+// create file bucket
 func CreateBucket(context *gin.Context) {
 	log.Println("##in CreateBucket")
 	name := context.Param("name")
@@ -75,6 +77,7 @@ func CreateBucket(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"data": hash, "code": 0, "msg": "ok"})
 }
 
+// upload file
 func Upload(context *gin.Context) {
 	log.Println("##in Upload")
 	filename := context.Param("filename")
@@ -122,6 +125,7 @@ func Upload(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"data": fid, "code": 0, "msg": "ok"})
 }
 
+// download file content with the json format
 func Download(context *gin.Context) {
 	log.Println("##in Download")
 	fid := context.Param("fid")
@@ -142,6 +146,7 @@ func Download(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"data": string(rt), "code": 0, "msg": "ok"})
 }
 
+// download the raw file
 func DownloadRaw(context *gin.Context) {
 	log.Println("##in Download")
 	fid := context.Param("fid")
