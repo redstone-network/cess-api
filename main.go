@@ -2,6 +2,7 @@ package main
 
 import (
 	"cess_api/controller"
+	"cess_api/middleware"
 	"fmt"
 	"log"
 
@@ -30,6 +31,7 @@ func loadDatabase() {
 
 func serveApplication() {
 	router := gin.Default()
+	router.Use(middleware.CORSMiddleware())
 
 	apiRoutes := router.Group("/api")
 
